@@ -1,4 +1,4 @@
-package com.first.rocknroll;
+package com.first.anew;
 
 import org.junit.Test;
 

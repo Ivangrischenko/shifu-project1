@@ -1,4 +1,4 @@
-package com.first.rocknroll;
+package com.first.anew;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.first.rocknroll", appContext.getPackageName());
+        assertEquals("com.first.anew", appContext.getPackageName());
     }
 }
