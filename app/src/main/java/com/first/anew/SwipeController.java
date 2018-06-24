@@ -1,4 +1,4 @@
-package pl.fanfatal.swipecontrollerdemo;
+package com.first.anew;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

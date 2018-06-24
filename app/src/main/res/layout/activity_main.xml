@@ -2,13 +2,18 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/LinearLayout1"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <fragment
-        android:name="com.first.anew.MainList"
+    android:layout_height="wrap_content"
+    tools:context="com.first.anew.MainActivity">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </fragment>
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal"
+        android:clipToPadding="false"
+        android:overScrollMode="never" />
+
 </LinearLayout>

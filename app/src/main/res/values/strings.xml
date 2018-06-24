@@ -1,5 +1,9 @@
 <resources>
-    <string name="app_name">Я смог вывести на экран</string>
+    <string name="app_name">Players</string>
     <string name="number_list">ТОП-10 футболистов</string>
     <string name="empty">Нет данных</string>
+    <string name="action_list">Список</string>
+    <string name="action_add">Добавить</string>
+    <string name="action_profile">Профиль</string>
+
 </resources>

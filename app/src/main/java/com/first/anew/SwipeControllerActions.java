@@ -1,4 +1,4 @@
-package pl.fanfatal.swipecontrollerdemo;
+package com.first.anew;
 
 public abstract class SwipeControllerActions {
 
