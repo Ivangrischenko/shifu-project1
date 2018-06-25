@@ -1,5 +1,6 @@
 package com.first.anew;
 
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +20,8 @@ import pl.fanfatal.swipecontrollerdemo.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    //private String pl = getIntent().getExtras().getString("testNameData");
+
     private PlayersDataAdapter mAdapter;
     SwipeController swipeController = null;
 
@@ -28,10 +32,27 @@ public class MainActivity extends AppCompatActivity {
 
         setPlayersDataAdapter();
         setupRecyclerView();
+
+
+
     }
+
 
     private void setPlayersDataAdapter() {
         List<Player> players = new ArrayList<>();
+        //Player pl = new Player();
+        //pl.setName(getIntent().getExtras().getString("testNameData"));
+
+        //players.add(pl);
+        Intent i = getIntent();
+        String text = i.getStringExtra ( "TextBox" );
+        if (text != null) {
+            Player pl = new Player();
+            pl.setName(text);
+            players.add(players.size(), pl);
+        }
+
+
         try {
             InputStreamReader is = new InputStreamReader(getAssets().open("players.csv"));
 
@@ -39,22 +60,35 @@ public class MainActivity extends AppCompatActivity {
             reader.readLine();
             String line;
             String[] st;
+
+
+
             while ((line = reader.readLine()) != null) {
                 st = line.split(",");
                 Player player = new Player();
                 player.setName(st[0]);
 
                 players.add(player);
+
+
             }
+
+
+
         } catch (IOException e) {
 
+
         }
+
+
+
+
 
         mAdapter = new PlayersDataAdapter(players);
     }
 
     private void setupRecyclerView() {
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(mAdapter);
@@ -78,9 +112,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_cat1) {
+            Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
