@@ -9,6 +9,8 @@ import android.support.v7.widget.helper.ItemTouchHelper.Callback;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.first.anew.SwipeControllerActions;
+
 import static android.support.v7.widget.helper.ItemTouchHelper.*;
 
 enum ButtonsState {
@@ -173,7 +175,7 @@ class SwipeController extends Callback {
     }
 
     private void drawText(String text, Canvas c, RectF button, Paint p) {
-        float textSize = 60;
+        float textSize = 40;
         p.setColor(Color.WHITE);
         p.setAntiAlias(true);
         p.setTextSize(textSize);
@@ -188,4 +190,3 @@ class SwipeController extends Callback {
         }
     }
 }
-

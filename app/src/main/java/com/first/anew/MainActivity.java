@@ -10,93 +10,61 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import com.first.anew.Players.MyHelper;
+import com.first.anew.Players.Player;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
 import pl.fanfatal.swipecontrollerdemo.R;
 
 public class MainActivity extends AppCompatActivity {
 
     //private String pl = getIntent().getExtras().getString("testNameData");
-
-    private PlayersDataAdapter mAdapter;
+    MyHelper myHelper;
+    RecyclerView recyclerView;
+    List<Player> playerList;
+    PlayersDataAdapter mAdapter;
     SwipeController swipeController = null;
+    Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setPlayersDataAdapter();
-        setupRecyclerView();
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView) ;
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
+        //setup realm
+        realm = Realm.getDefaultInstance();
 
+        myHelper = new MyHelper(realm);
+        playerList = new ArrayList<>();
 
-    }
+        playerList = myHelper.getAllRealmM();
 
-
-    private void setPlayersDataAdapter() {
-        List<Player> players = new ArrayList<>();
-        //Player pl = new Player();
-        //pl.setName(getIntent().getExtras().getString("testNameData"));
-
-        //players.add(pl);
-        Intent i = getIntent();
-        String text = i.getStringExtra ( "TextBox" );
-        if (text != null) {
-            Player pl = new Player();
-            pl.setName(text);
-            players.add(players.size(), pl);
-        }
-
-
-        try {
-            InputStreamReader is = new InputStreamReader(getAssets().open("players.csv"));
-
-            BufferedReader reader = new BufferedReader(is);
-            reader.readLine();
-            String line;
-            String[] st;
-
-
-
-            while ((line = reader.readLine()) != null) {
-                st = line.split(",");
-                Player player = new Player();
-                player.setName(st[0]);
-
-                players.add(player);
-
-
-            }
-
-
-
-        } catch (IOException e) {
-
-
-        }
-
-
-
-
-
-        mAdapter = new PlayersDataAdapter(players);
-    }
-
-    private void setupRecyclerView() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mAdapter = new PlayersDataAdapter( playerList, this);
         recyclerView.setAdapter(mAdapter);
 
         swipeController = new SwipeController(new SwipeControllerActions() {
             @Override
-            public void onRightClicked(int position) {
-                mAdapter.players.remove(position);
+            public void onRightClicked(final int position) {
+
+                    realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+
+
+                            // remove a single object
+                            Player player = playerList.get(position);
+                            player.deleteFromRealm();
+
+                        }
+                    });
+
                 mAdapter.notifyItemRemoved(position);
                 mAdapter.notifyItemRangeChanged(position, mAdapter.getItemCount());
             }
@@ -111,7 +79,9 @@ public class MainActivity extends AppCompatActivity {
                 swipeController.onDraw(c);
             }
         });
-    }
+
+
+     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
