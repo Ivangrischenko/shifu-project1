@@ -5,7 +5,7 @@ import android.app.Application;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
-public class MyAppl extends Application {
+public class MyApply extends Application {
 
     @Override
     public void onCreate(){
@@ -13,8 +13,8 @@ public class MyAppl extends Application {
 
         Realm.init(this);
 
-        RealmConfiguration conf = new RealmConfiguration.Builder().name("App").build();
+        RealmConfiguration conff = new RealmConfiguration.Builder().name("Appe").build();
 
-        Realm.setDefaultConfiguration(conf);
+        Realm.setDefaultConfiguration(conff);
     }
 }

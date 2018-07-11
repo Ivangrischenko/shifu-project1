@@ -18,10 +18,10 @@ import pl.fanfatal.swipecontrollerdemo.R;
 public class Main2Activity extends AppCompatActivity {
 
 
-    EditText editText;
+    EditText edit_title, edit_content, edit_link;
     Button button;
     Realm realm1;
-    String mName;
+    String mTitle, mContent, mLink;
     MyHelper myHelper;
 
 
@@ -31,17 +31,24 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
 
         button = (Button) findViewById(R.id.b1);
-        editText = (EditText) findViewById(R.id.edit_text);
+        edit_title = (EditText) findViewById(R.id.edit_title);
+        edit_content = (EditText) findViewById(R.id.edit_content);
+        edit_link = (EditText)findViewById(R.id.edit_link);
 
         realm1 = Realm.getDefaultInstance();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mName = editText.getText().toString();
-                if(!mName.isEmpty()){
+                mTitle = edit_title.getText().toString();
+                mContent = edit_content.getText().toString();
+                mLink = edit_link.getText().toString();
+
+                if(!mTitle.isEmpty() && !mContent.isEmpty() && !mLink.isEmpty()){
                     Player player = new Player();
-                    player.setName(mName);
+                    player.setTitle(mTitle);
+                    player.setContent(mContent);
+                    player.setLink(mLink);
 
                     myHelper = new MyHelper (realm1);
                     myHelper.save(player);

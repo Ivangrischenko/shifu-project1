@@ -36,7 +36,9 @@ public class PlayersDataAdapter extends RecyclerView.Adapter<PlayersDataAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Player player = playerList.get(position);
-        holder.name.setText(player.getName());
+        holder.title.setText(player.getTitle());
+        holder.content.setText(player.getContent());
+        holder.link.setText(player.getLink());
 
     }
 
@@ -46,11 +48,15 @@ public class PlayersDataAdapter extends RecyclerView.Adapter<PlayersDataAdapter.
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView name;
+        TextView title;
+        TextView content;
+        TextView link;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.name);
+            title = itemView.findViewById(R.id.name);
+            content = itemView.findViewById(R.id.content);
+            link = itemView.findViewById(R.id.link);
 
         }
 

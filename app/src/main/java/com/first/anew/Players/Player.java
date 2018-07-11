@@ -8,17 +8,34 @@ public class Player extends RealmObject {
 
     @PrimaryKey
     private int id;
-    public static final String FIELD_ID = "id";
-    private String name;
 
+    private String title;
+    private String content;
+    private String link;
 
-    public String getName() {
-        return name;
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public int getId() {
